@@ -1,0 +1,21 @@
+.navbar {
+  background-color:white;
+  height: 135px;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid grey;
+}
+.navbar-2 {
+  display: flex;
+  justify-content: space-between;
+}
+.navbar-2 h1 {
+  padding-right: 10px;
+}
+.navbar-1 {
+  width: 20%;
+}
+.logout:hover{
+  color: blue;
+
+}

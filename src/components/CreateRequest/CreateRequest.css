@@ -1,0 +1,73 @@
+.leave-form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.leave-form {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.form-group {
+  display: grid;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  height: 100px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+/* Styling for select dropdown */
+.leave-form-container select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+}
+
+.leave-form-container select:hover {
+  border-color: #007bff;
+}
+
+.leave-form-container select:focus {
+  border-color: #007bff;
+}
+
+/* Styling for options in select dropdown */
+.leave-form-container option {
+  font-size: 16px;
+}

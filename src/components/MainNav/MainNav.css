@@ -1,0 +1,30 @@
+.mainclass {
+  background-color: rgb(179, 179, 253);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  margin-left: 40px;
+  font-family: "Bree Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.menus {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+  text-decoration: none;
+}
+.items {
+  text-decoration: none;
+  margin-left: 20px;
+  border: 1px solid green;
+  background-color: green;
+  color: white;
+  width: 200px;
+  height: 35px;
+  border-radius: 10px;
+  margin-top: 3px;
+}
