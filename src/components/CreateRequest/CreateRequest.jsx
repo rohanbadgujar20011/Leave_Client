@@ -7,6 +7,7 @@ import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 const CreateRequest = ({ setSelectedOption }) => {
   // State variables to hold form data
+  const token = localStorage.getItem("token");
   const { userInfo, teacherData, rectorData } = useAuth();
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
@@ -16,7 +17,6 @@ const CreateRequest = ({ setSelectedOption }) => {
   const [assignedTeacher, setAssignedTeacher] = useState();
   const [assignedRector, setAssignedRector] = useState("");
   const navigate = useNavigate();
-  
 
   // Function to handle form submission
 
@@ -34,7 +34,11 @@ const CreateRequest = ({ setSelectedOption }) => {
     };
 
     try {
-      const res = await axios.post(createleave, formData);
+      const res = await axios.post(createleave, formData, {
+        headers: {
+          Authorization: ` ${token}`,
+        },
+      });
       console.log(res.data);
       toast.success(res.data.message);
       setSelectedOption("history");
