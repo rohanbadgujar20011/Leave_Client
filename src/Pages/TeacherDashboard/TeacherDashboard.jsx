@@ -5,10 +5,11 @@ import Navbars from "../../components/Navbars/AdminNavbar";
 import ViewTeacherHistory from "../../components/ViewTeacherHistory/ViewTeacherHistory";
 import RequestbyId from "../../components/RequestbyID/RequestbyId";
 import { useAuth } from "../../context/AuthContext";
+import SingleRequest from "../../components/SingleRequest/SingleRequest";
 const TeacherDashboard = () => {
   const [selectedOption, setSelectedOption] = useState("newRequest"); // State to manage the selected option
   const navigate = useNavigate();
-  const { userLeaves } = useAuth();
+  const { userLeaves, viewId } = useAuth();
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -69,6 +70,9 @@ const TeacherDashboard = () => {
           )}
           {selectedOption === "requestByID" && (
             <RequestbyId setSelectedOption={setSelectedOption} />
+          )}
+          {selectedOption === "singleiew" && (
+            <SingleRequest id={viewId} setSelectedOption={setSelectedOption} />
           )}
           {/* {selectedOption === "newRequest" && <NewRequest />}
           {selectedOption === "requestHistory" && <RequestHistory />}

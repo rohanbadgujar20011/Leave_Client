@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [userLeaves, setUserLeaves] = useState([]);
   const [teacherData, setteacherData] = useState([]);
   const [rectorData, setrectorData] = useState([]);
+  const [viewId, setviewId] = useState();
   const login = () => {
     setIsLoggedIn(true);
   };
@@ -53,6 +54,8 @@ export const AuthProvider = ({ children }) => {
         teacherData,
         setrector,
         rectorData,
+        setviewId,
+        viewId,
       }}
     >
       {children}

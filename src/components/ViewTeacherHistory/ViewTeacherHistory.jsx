@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import "./ViewTeacherHistory.css";
 import { useAuth } from "../../context/AuthContext";
+import SingleRequest from "../SingleRequest/SingleRequest";
 const ViewTeacherHistory = ({ setSelectedOption }) => {
-  const { setleaves, userInfo, userLeaves, teacherData, rectorData } =
-    useAuth();
+  const {
+    setleaves,
+    userInfo,
+    userLeaves,
+    teacherData,
+    rectorData,
+    setviewId,
+  } = useAuth();
 
   useEffect(() => {
     console.log("userLeaves updated:", userLeaves);
@@ -20,6 +27,10 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
     const foundRector = rectorData.find((rector) => rector._id === rectorId);
     console.log("found Rector", foundRector);
     return foundRector ? foundRector.name : ""; // Return teacher name if found, otherwise empty string
+  };
+  const handleViewRequest = (leaveId) => {
+    setSelectedOption("singleiew")
+    setviewId(leaveId);
   };
 
   return (
@@ -77,7 +88,7 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
                     cursor: "pointer",
                   }}
                 >
-                  <FaEye />
+                  <FaEye onClick={() => handleViewRequest(leave._id)} />
                 </td>
                 <td>{new Date(leave.createdAt).toLocaleString()}</td>
               </tr>
