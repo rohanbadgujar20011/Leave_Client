@@ -1,6 +1,6 @@
 .mainclass {
-  background-color: rgb(179, 179, 253);
-  height: 50px;
+  background-color: rgb(7, 7, 7);
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,6 +10,7 @@
   font-family: "Bree Serif", serif;
   font-weight: 400;
   font-style: normal;
+  color: white;
 }
 .menus {
   display: flex;
@@ -27,4 +28,8 @@
   height: 35px;
   border-radius: 10px;
   margin-top: 3px;
+}
+.items:hover{
+    background-color: red;
+
 }

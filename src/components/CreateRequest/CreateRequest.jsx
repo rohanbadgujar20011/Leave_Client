@@ -16,8 +16,7 @@ const CreateRequest = ({ setSelectedOption }) => {
   const [assignedTeacher, setAssignedTeacher] = useState();
   const [assignedRector, setAssignedRector] = useState("");
   const navigate = useNavigate();
-  const teachers = ["Teacher 1", "Teacher 2", "Teacher 3"];
-  const rectors = ["Rector 1", "Rector 2", "Rector 3"];
+  
 
   // Function to handle form submission
 

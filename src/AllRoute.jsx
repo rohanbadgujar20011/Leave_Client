@@ -2,17 +2,19 @@ import React, { useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
-import Admindashboard from "./Pages/Admindashboard/Admindashboard";
+import fetchteacherData from "./context/fetchteacherdata";
 import Studentdashboard from "./Pages/Studentdashboard/Studentdashboard";
 import { useAuth } from "./context/AuthContext";
+import TeacherDashboard from "./Pages/TeacherDashboard/TeacherDashboard";
 import {
   validatelogin,
   leavesbyemail,
   getallteacher,
   getallrector,
 } from "./util/Allapi"; // assuming you have a second API
-import withSessionTimeoutCheck from "./withSessionTimeoutCheck";
+import TeacherLogin from "./Pages/TeacherLogin/TeacherLogin";
 import axios from "axios";
+import fetchData from "./context/featchdata";
 
 const AllRoute = () => {
   const {
@@ -29,63 +31,25 @@ const AllRoute = () => {
   console.log(isLoggedIn, userRole);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      const fetchData = async () => {
-        try {
-          const res1 = await axios.get(validatelogin, {
-            headers: {
-              Authorization: token,
-            },
-          });
-          console.log("Log 1");
-          console.log(res1.data.user);
-          setUserData(res1.data.user);
-
-          const res2 = await axios.get(
-            `${leavesbyemail}/${res1.data.user.email}`
-          );
-          console.log("Log 2");
-          console.log(res2.data.leaves);
-          setleaves(res2.data.leaves);
-          const res3 = await axios.get(`${getallteacher}`, {
-            headers: {
-              Authorization: token,
-            },
-          });
-          console.log("Log 3");
-          console.log(res3.data);
-          setteacher(res3.data);
-
-          const res4 = await axios.get(`${getallrector}`, {
-            headers: {
-              Authorization: token,
-            },
-          });
-          console.log("Log 3");
-          console.log(res4.data);
-          setrector(res4.data);
-        } catch (error) {
-          alert(error);
-          localStorage.clear();
-          navigate("/login");
-        }
-      };
-
-      fetchData();
+    if (isLoggedIn && userRole == "student") {
+      fetchData(token, userRole, setUserData, setleaves, setteacher, setrector);
+    } else if (isLoggedIn && userRole == "teacher") {
+      fetchteacherData(token,userRole,setUserData,setleaves,setteacher,setrector);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, token]);
 
   return (
     <div>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/teacherlogin" element={<TeacherLogin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
         {isLoggedIn && userRole === "student" && (
           <Route path="/studentdashboard" element={<Studentdashboard />} />
         )}
-        {isLoggedIn && userRole === "admin" && (
-          <Route path="/admindashboard" element={<Admindashboard />} />
+        {isLoggedIn && userRole === "teacher" && (
+          <Route path="/teacherdashboard" element={<TeacherDashboard />} />
         )}
         {!isLoggedIn && (
           <Route path="*" element={<Navigate to="/login" replace />} />

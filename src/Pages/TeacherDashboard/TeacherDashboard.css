@@ -1,0 +1,42 @@
+.sidebar {
+  width: 20%;
+  background-color: black;
+  height: 100vh;
+}
+
+.side-menu {
+  border-top: 1px solid white;
+}
+
+.side-item {
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.side-item :hover {
+  color: rgb(15, 100, 175);
+  cursor: pointer;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .side-item {
+    height: 80px;
+  }
+  .sidebar {
+    width: 50%;
+  }
+}
+
+.wrapper {
+  display: flex;
+}
+.right-menu {
+  width: 100%;
+}
+.notification{
+  background-color: red;
+  width: 30px;
+  border-radius: 10px;
+}
