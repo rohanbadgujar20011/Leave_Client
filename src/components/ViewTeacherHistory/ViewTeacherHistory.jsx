@@ -55,52 +55,69 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
         </thead>
         <tbody>
           {userLeaves && userLeaves.length > 0 ? (
-            userLeaves.map((leave) => (
-              <tr key={leave._id}>
-                <td>{leave.leaveID}</td>
-                <td>{leave.name}</td>
-                <td>{leave.email}</td>
-                <td>{new Date(leave.from).toLocaleDateString()}</td>
-                <td>{new Date(leave.to).toLocaleDateString()}</td>
-                <td>
-                  {leave.reason.length > 50
-                    ? leave.reason.substring(0, 10) + "..."
-                    : leave.reason}
-                </td>
-
-                <td>{findTeacherNameById(leave.assignedTeacher)}</td>
-                <td>{findRectorNameById(leave.assignedRector)}</td>
-                <td
-                  style={{
-                    color: leave.statusI ? "green" : "red",
-                    height: "5px",
-                  }}
-                >
-                  {leave.statusI ? "Approved" : "Pending"}
-                </td>
-                <td
-                  style={{
-                    color: leave.statusII ? "green" : "red",
-                    height: "5px",
-                  }}
-                >
-                  {leave.statusII ? "Approved" : "Pending"}
-                </td>
-                <td
-                  style={{
-                    fontSize: "20px",
-                    paddingLeft: "30px",
-                    cursor: "pointer",
-                  }}
-                >
-                  <FaEye
-                    onClick={() => handleViewRequest(leave._id)}
-                    setSelectedOption={setSelectedOption}
-                  />
-                </td>
-                <td>{new Date(leave.createdAt).toLocaleString()}</td>
-              </tr>
-            ))
+            userLeaves
+              .filter((leave) => !leave.statusI && !leave.isRejected) // Filter out leaves where statusI is false and isRejected is false
+              .map((leave) => (
+                <tr key={leave._id}>
+                  <td>{leave.leaveID}</td>
+                  <td>{leave.name}</td>
+                  <td>{leave.email}</td>
+                  <td>{new Date(leave.from).toLocaleDateString()}</td>
+                  <td>{new Date(leave.to).toLocaleDateString()}</td>
+                  <td>
+                    {leave.reason.length > 50
+                      ? leave.reason.substring(0, 10) + "..."
+                      : leave.reason}
+                  </td>
+                  <td>{findTeacherNameById(leave.assignedTeacher)}</td>
+                  <td>{findRectorNameById(leave.assignedRector)}</td>
+                  <td
+                    style={{
+                      color: leave.statusI
+                        ? "green"
+                        : leave.isRejected
+                        ? "Red"
+                        : "blue",
+                      height: "5px",
+                    }}
+                  >
+                    {leave.statusI
+                      ? "Approved"
+                      : leave.isRejected
+                      ? "Rejected"
+                      : "Pending"}
+                  </td>
+                  <td
+                    style={{
+                      color: leave.statusII
+                        ? "green"
+                        : leave.isRejected
+                        ? "Red"
+                        : "blue",
+                      height: "5px",
+                    }}
+                  >
+                    {leave.statusII
+                      ? "Approved"
+                      : leave.isRejected
+                      ? "Rejected"
+                      : "Pending"}
+                  </td>
+                  <td
+                    style={{
+                      fontSize: "20px",
+                      paddingLeft: "30px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <FaEye
+                      onClick={() => handleViewRequest(leave._id)}
+                      setSelectedOption={setSelectedOption}
+                    />
+                  </td>
+                  <td>{new Date(leave.createdAt).toLocaleString()}</td>
+                </tr>
+              ))
           ) : (
             <tr>
               <td colSpan="11">No leave history found</td>

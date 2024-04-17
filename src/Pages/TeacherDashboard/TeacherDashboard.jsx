@@ -6,6 +6,7 @@ import ViewTeacherHistory from "../../components/ViewTeacherHistory/ViewTeacherH
 import RequestbyId from "../../components/RequestbyID/RequestbyId";
 import { useAuth } from "../../context/AuthContext";
 import SingleRequest from "../../components/SingleRequest/SingleRequest";
+import RecentRequest from "../../components/RecentRequest/RecentRequest";
 const TeacherDashboard = () => {
   const [selectedOption, setSelectedOption] = useState("newRequest"); // State to manage the selected option
   const navigate = useNavigate();
@@ -67,6 +68,9 @@ const TeacherDashboard = () => {
         <div>
           {selectedOption === "newRequest" && (
             <ViewTeacherHistory setSelectedOption={setSelectedOption} />
+          )}
+          {selectedOption === "requestHistory" && (
+            <RecentRequest setSelectedOption={setSelectedOption} />
           )}
           {selectedOption === "requestByID" && (
             <RequestbyId setSelectedOption={setSelectedOption} />

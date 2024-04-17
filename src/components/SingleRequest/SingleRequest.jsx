@@ -1,7 +1,7 @@
 import React from "react";
 import "./SingleRequest.css";
 import { useAuth } from "../../context/AuthContext";
-import { approveleavebyteacher } from "../../util/Allapi";
+import { approveleavebyteacher, rejectleavebyteacher } from "../../util/Allapi";
 import axios from "axios";
 
 const SingleRequest = ({ id, setSelectedOption }) => {
@@ -40,9 +40,22 @@ const SingleRequest = ({ id, setSelectedOption }) => {
     setSelectedOption("newRequest");
     window.location.reload();
   };
-  const handledisapprove = (leaveID) => {
+  const handledisapprove = async (leaveID, teacherId) => {
     console.log(`clicked id ${leaveID}`);
-    // You can call the function for disapproving leave here
+    const res = await axios.patch(
+      rejectleavebyteacher,
+      {
+        teacherid: teacherId,
+        leaveid: leaveID,
+      },
+      {
+        headers: {
+          Authorization: token, // Set the Authorization header with the token
+        },
+      }
+    );
+    setSelectedOption("requestHistory");
+    window.location.reload();
   };
 
   return (
@@ -145,7 +158,9 @@ const SingleRequest = ({ id, setSelectedOption }) => {
                   <button
                     type="button"
                     className="disapprove-button"
-                    onClick={() => handledisapprove(leave._id)}
+                    onClick={() =>
+                      handledisapprove(leave._id, leave.assignedTeacher)
+                    }
                   >
                     Reject
                   </button>
