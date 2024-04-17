@@ -67,20 +67,37 @@ const ViewHistoryStudent = () => {
                 <td>{leave.email}</td>
                 <td>{new Date(leave.from).toLocaleDateString()}</td>
                 <td>{new Date(leave.to).toLocaleDateString()}</td>
-                <td>{leave.reason}</td>
+                <td>
+                  {leave.reason.length > 50
+                    ? leave.reason.substring(0, 10) + "..."
+                    : leave.reason}
+                </td>
+
                 <td>{findTeacherNameById(leave.assignedTeacher)}</td>
                 <td>{findRectorNameById(leave.assignedRector)}</td>
                 <td
                   style={{
-                    color: leave.statusI ? "green" : "red",
+                    color: leave.statusI
+                      ? "green"
+                      : leave.isRejected
+                      ? "Red"
+                      : "blue",
                     height: "5px",
                   }}
                 >
-                  {leave.statusI ? "Approved" : "Pending"}
+                  {leave.statusI
+                    ? "Approved"
+                    : leave.isRejected
+                    ? "Rejected"
+                    : "Pending"}
                 </td>
                 <td
                   style={{
-                    color: leave.statusII ? "green" : "red",
+                    color: leave.statusII
+                      ? "green"
+                      : leave.isRejected
+                      ? "Red"
+                      : "blue",
                     height: "5px",
                   }}
                 >

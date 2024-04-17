@@ -29,7 +29,7 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
     return foundRector ? foundRector.name : ""; // Return teacher name if found, otherwise empty string
   };
   const handleViewRequest = (leaveId) => {
-    setSelectedOption("singleiew")
+    setSelectedOption("singleiew");
     setviewId(leaveId);
   };
 
@@ -62,7 +62,12 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
                 <td>{leave.email}</td>
                 <td>{new Date(leave.from).toLocaleDateString()}</td>
                 <td>{new Date(leave.to).toLocaleDateString()}</td>
-                <td>{leave.reason}</td>
+                <td>
+                  {leave.reason.length > 50
+                    ? leave.reason.substring(0, 10) + "..."
+                    : leave.reason}
+                </td>
+
                 <td>{findTeacherNameById(leave.assignedTeacher)}</td>
                 <td>{findRectorNameById(leave.assignedRector)}</td>
                 <td
@@ -88,7 +93,10 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
                     cursor: "pointer",
                   }}
                 >
-                  <FaEye onClick={() => handleViewRequest(leave._id)} />
+                  <FaEye
+                    onClick={() => handleViewRequest(leave._id)}
+                    setSelectedOption={setSelectedOption}
+                  />
                 </td>
                 <td>{new Date(leave.createdAt).toLocaleString()}</td>
               </tr>

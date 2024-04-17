@@ -1,9 +1,10 @@
 .navbar {
-  background-color:white;
+  background-color: white;
   height: 135px;
   width: 100%;
   display: flex;
   border-bottom: 1px solid grey;
+  position: fixed;
 }
 .navbar-2 {
   display: flex;
@@ -15,7 +16,6 @@
 .navbar-1 {
   width: 20%;
 }
-.logout:hover{
+.logout:hover {
   color: blue;
-
 }

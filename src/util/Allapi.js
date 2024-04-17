@@ -8,3 +8,4 @@ export const getallteacher = `${host}teacher/all`;
 export const getallrector = `${host}rector/all`;
 export const loginteacher = `${host}teacher/login`;
 export const teacherleaves = `${host}teacher/getallleaves`;
+export const approveleavebyteacher = `${host}teacher/approveleavebyteacher`;
