@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./Studentdashboard.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import Navbars from "../../components/Navbars/AdminNavbar";
 import CreateRequest from "../../components/CreateRequest/CreateRequest";
 import ViewHistoryStudent from "../../components/ViewHistoryStudent/ViewHistoryStudent";
 const Studentdashboard = () => {
   const [selectedOption, setSelectedOption] = useState("history"); // State to manage the selected option
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    // const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (!isLoggedIn) {
       navigate("/login");
     }
-  }, []);
+  }, [isLoggedIn]);
   const handleOptionChange = (option) => {
     console.log("option");
     setSelectedOption(option);

@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+// import { io } from "socket.io-client";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
@@ -27,14 +28,36 @@ const AllRoute = () => {
   } = useAuth();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  // const socket = useRef();
+  const host = process.env.REACT_APP_API_KEY;
 
   console.log(isLoggedIn, userRole);
 
   useEffect(() => {
-    if (isLoggedIn && userRole == "student") {
-      fetchData(token, userRole, setUserData, setleaves, setteacher, setrector);
-    } else if (isLoggedIn && userRole == "teacher") {
-      fetchteacherData(token,userRole,setUserData,setleaves,setteacher,setrector);
+    // socket.current = io(host);
+    // socket.current.emit("add");
+    try {
+      if (isLoggedIn && userRole == "student") {
+        fetchData(
+          token,
+          userRole,
+          setUserData,
+          setleaves,
+          setteacher,
+          setrector
+        );
+      } else if (isLoggedIn && userRole == "teacher") {
+        fetchteacherData(
+          token,
+          userRole,
+          setUserData,
+          setleaves,
+          setteacher,
+          setrector
+        );
+      }
+    } catch (error) {
+      navigate("/login");
     }
   }, [isLoggedIn, token]);
 

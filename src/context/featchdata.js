@@ -1,4 +1,3 @@
-
 import {
   validatelogin,
   leavesbyemail,
@@ -48,9 +47,9 @@ const fetchData = async (
     console.log(res4.data);
     setrector(res4.data);
   } catch (error) {
-    alert(error);
+    alert(error.response.data.message);
+    console.log(error.response.data.message);
     localStorage.clear();
-    // navigate("/login");
   }
 };
 export default fetchData;

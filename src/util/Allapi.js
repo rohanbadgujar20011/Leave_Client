@@ -10,3 +10,4 @@ export const loginteacher = `${host}teacher/login`;
 export const teacherleaves = `${host}teacher/getallleaves`;
 export const approveleavebyteacher = `${host}teacher/approveleavebyteacher`;
 export const rejectleavebyteacher = `${host}teacher/disapproveleavebyteacher`;
+export const reassignleave = `${host}teacher/resignleave`;
