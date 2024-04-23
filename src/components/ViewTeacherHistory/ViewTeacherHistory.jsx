@@ -8,6 +8,10 @@ import { RxLoop } from "react-icons/rx";
 import { useAuth } from "../../context/AuthContext";
 import SingleRequest from "../SingleRequest/SingleRequest";
 import axios from "axios";
+import { FaDownload } from "react-icons/fa";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import Pdfile from "../Pdffile";
+import toast, { Toaster } from "react-hot-toast";
 
 const ViewTeacherHistory = ({ setSelectedOption }) => {
   const {
@@ -58,27 +62,37 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await axios.patch(
-      reassignleave,
-      {
-        from: selectedTeacher,
-        to: reassignedTeacher,
-        leaveid,
-      },
-      {
-        headers: {
-          Authorization: token,
+    try {
+      const response = await axios.patch(
+        reassignleave,
+        {
+          from: selectedTeacher,
+          to: reassignedTeacher,
+          leaveid,
         },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      toast.success(response.data.message);
+      setShow(false);
+      window.location.reload();
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else if (error.request) {
+        toast.error("Network Error. Please try again later.");
+      } else {
+        toast.error("An error occurred. Please try again later.");
       }
-    );
-
-    console.log("Reassigning leave to:", response.data);
-
-    setShow(false);
+    }
   };
 
   return (
     <div className="table-container">
+      <Toaster />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Teacher Details</Modal.Title>
@@ -87,7 +101,7 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
           {selectedTeacher && (
             <form onSubmit={handleSubmit}>
               <div>
-                <p>Assigned to : {selectedTeacher}</p>
+                <p>Assigned to : {findTeacherNameById(selectedTeacher)}</p>
                 <p>Reassign to :</p>
                 <select
                   value={reassignedTeacher}
@@ -130,6 +144,7 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
             <th>Status II</th>
             <th>View</th>
             <th>Reassign</th>
+            <th>Download</th>
           </tr>
         </thead>
         <tbody>
@@ -203,8 +218,23 @@ const ViewTeacherHistory = ({ setSelectedOption }) => {
                           leave._id
                         )
                       }
-                      style={{ fontSize: "25px", marginLeft: "10px" }}
+                      style={{
+                        fontSize: "25px",
+                        marginLeft: "10px",
+                        cursor: "pointer",
+                      }}
                     />
+                  </td>
+                  <td>
+                    <PDFDownloadLink document={<Pdfile />} fileName="Form">
+                      {({ loading }) =>
+                        loading ? (
+                          <button>Loading documents</button>
+                        ) : (
+                          <button>Download</button>
+                        )
+                      }
+                    </PDFDownloadLink>
                   </td>
                 </tr>
               ))
