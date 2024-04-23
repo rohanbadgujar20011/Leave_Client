@@ -50,7 +50,8 @@ const fetchteacherData = async (
     console.log(res4.data);
     setrector(res4.data);
   } catch (error) {
-    alert(error);
+    alert(error.response.data.message);
+    console.log(error.response.data.message);
   }
 };
 export default fetchteacherData;

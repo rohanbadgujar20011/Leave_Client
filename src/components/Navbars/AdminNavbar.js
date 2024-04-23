@@ -1,14 +1,11 @@
 import React from "react";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 const AdminNavbar = () => {
   const navigate = useNavigate();
-  const logoutfunc = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userRole");
-    localStorage.removeItem("token");
-    navigate("/");
-  };
+  const { logout } = useAuth();
+
   return (
     <div className="navbar">
       <div className="navbar-1">
@@ -18,7 +15,7 @@ const AdminNavbar = () => {
         <h2>Account</h2>
         <h2
           style={{ marginRight: "20px", marginLeft: "25px" }}
-          onClick={logoutfunc}
+          onClick={logout}
           className="logout"
         >
           Logout

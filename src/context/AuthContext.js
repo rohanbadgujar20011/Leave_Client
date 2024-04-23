@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
   };
   const setUserData = (userData) => {
+    console.log("ye hai user data", userData);
     setUserInfo(userData);
 
     console.log(userData);

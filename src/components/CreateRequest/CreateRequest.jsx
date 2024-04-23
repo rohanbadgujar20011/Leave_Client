@@ -3,7 +3,7 @@ import "./CreateRequest.css";
 import { useAuth } from "../../context/AuthContext";
 import { createleave } from "../../util/Allapi";
 import axios from "axios";
-import { Toaster, toast } from "sonner";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 const CreateRequest = ({ setSelectedOption }) => {
   // State variables to hold form data
@@ -41,8 +41,10 @@ const CreateRequest = ({ setSelectedOption }) => {
       });
       console.log(res.data);
       toast.success(res.data.message);
-      setSelectedOption("history");
-      window.location.reload();
+      setTimeout(() => {
+        setSelectedOption("history");
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data);
@@ -58,7 +60,9 @@ const CreateRequest = ({ setSelectedOption }) => {
 
   return (
     <div className="leave-form-container">
-      <Toaster position="top-center" />
+      <div>
+        <Toaster />
+      </div>
       <h2>Leave Request Form</h2>
       <form onSubmit={handleSubmit} className="leave-form">
         <div className="form-group">
