@@ -38,7 +38,7 @@ const TeacherLogin = () => {
         setTimeout(() => {
           navigate("/teacherdashboard");
           setLoading(false);
-        }, 4000);
+        }, 2000);
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
