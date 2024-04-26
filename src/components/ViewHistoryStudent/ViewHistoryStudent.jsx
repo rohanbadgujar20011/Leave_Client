@@ -53,8 +53,8 @@ const ViewHistoryStudent = () => {
             <th>Reason</th>
             <th>Assigned Teacher</th>
             <th>Assigned Rector</th>
-            <th>Status I</th>
-            <th>Status II</th>
+            <th>Teacher Status</th>
+            <th>Rector Status</th>
             <th>Created At</th>
           </tr>
         </thead>
